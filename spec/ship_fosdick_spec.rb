@@ -1,11 +1,7 @@
 require 'spec_helper'
 
-describe ShipFosdick do
+RSpec.describe ShipFosdick do
   it 'has a version number' do
     expect(ShipFosdick::VERSION).not_to be nil
-  end
-
-  it 'does something useful' do
-    expect(false).to eq(true)
   end
 end
