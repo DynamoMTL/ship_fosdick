@@ -1,4 +1,6 @@
 require 'ship_fosdick/version'
+require 'ship_fosdick/railtie'
+require 'ship_fosdick/engine'
 
 # Fosdick integration entry point.
 # Will check to see if Rails and a confuration is available.
