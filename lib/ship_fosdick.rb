@@ -4,6 +4,8 @@ require 'ship_fosdick/railtie'
 require 'ship_fosdick/engine'
 require 'ship_fosdick/uploader'
 
+Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*'].each {|file| require file }
+
 # Fosdick integration entry point.
 # Will check to see if Rails confuration is available.
 # Including bootstrapping all needed files for your shipping pleasure
