@@ -1,11 +1,7 @@
 require 'spree_core'
-require 'ship_fosdick/version'
-require 'ship_fosdick/railtie'
-require 'ship_fosdick/engine'
-require 'ship_fosdick/uploader'
-require 'ship_fosdick/downloader'
 
-Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/ship_fosdick/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*.rb'].each {|file| require file }
 
 # Fosdick integration entry point.
 # Will check to see if Rails confuration is available.
