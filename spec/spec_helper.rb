@@ -8,6 +8,8 @@ require 'pry-byebug'
 require 'factory_girl'
 require 'ship_fosdick'
 require 'ffaker'
+require 'dotenv'
+Dotenv.load
 FactoryGirl.find_definitions
 
 require 'spree/testing_support/factories'
