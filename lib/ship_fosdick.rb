@@ -1,4 +1,5 @@
 require 'spree_core'
+require 's3'
 
 Dir[File.dirname(__FILE__) + '/ship_fosdick/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*.rb'].each {|file| require file }
