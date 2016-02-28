@@ -1,7 +1,5 @@
-require 's3'
-
 module ShipFosdick
-  class Factory
+  class UploadFactory
     def initialize
       @content = ''
     end

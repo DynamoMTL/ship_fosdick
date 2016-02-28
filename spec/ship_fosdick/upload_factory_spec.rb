@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 's3'
 
-RSpec.describe ShipFosdick::Factory, :slow do
+RSpec.describe ShipFosdick::UploadFactory, :slow do
   let!(:order) { create :order_ready_to_ship }
   let(:service) { S3::Service.new(:access_key_id => ENV.fetch('AWS_ACCESS_KEY_ID'), 
                                   :secret_access_key => ENV.fetch('AWS_SECRET_ACCESS_KEY')) }
