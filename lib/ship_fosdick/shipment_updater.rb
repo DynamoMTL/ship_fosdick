@@ -19,7 +19,7 @@ module ShipFosdick
     # run date at index 6
     def process
       files.each do |file|
-        file.content.each_line do |line|
+        file.each_line do |line|
           next if line.blank? || line.match(/Ext Order #/)
           @line = line.split(' ')
           update_shipment
