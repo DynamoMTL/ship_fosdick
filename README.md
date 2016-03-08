@@ -35,10 +35,20 @@ shipper = ShipFosdick::UploadFactory.new
 shipper.call
 ```
 
+### Download
+
+Fosdick, once shipments have been shipped, deposit a text file back into the S3 bucket. 
+There is a simple, rake runable factory that wraps the logic to do the following:
+
+1. Download the content from these shipment manifests.
+1. Parse this info into arrays of strings
+1. Utilize [specific parts of the array][1] to update relevant shipments
+1. Profit?
+
 ## Setup
 
 Most Solidus and Spree stores will be running Paperclip. 
-This, at the moment relies on the 3 environment variables that should be set if running Paperclip:
+This, at the moment relies on the S3 environment variables that should be set if running Paperclip:
 
 ```
 AWS_ACCESS_KEY_ID
@@ -50,14 +60,6 @@ S3_BUCKET
 
 After checking out the repo, run `bin/setup` to install dependencies. 
 Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`.
-To release a new version, 
-update the version number in `version.rb`,
-and then run `bundle exec rake release`, 
-which will create a git tag for the version, 
-push git commits and tags, 
-and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
@@ -71,3 +73,4 @@ All changed items are recorded in the CHANGELOG.md
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+[1]: https://github.com/DynamoMTL/ship_fosdick/blob/master/lib/ship_fosdick/shipment_updater.rb#L11-L19
