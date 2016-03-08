@@ -5,10 +5,10 @@ module ShipFosdick
     end
 
     def download
-      [].tap do |returned_files|
+      [].tap do |returned_content|
         bucket.objects.each do |object|
           next unless object.key.downcase.include?('shp')
-          returned_files << object.content
+          returned_content << object.content
         end
       end
     end
