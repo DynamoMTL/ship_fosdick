@@ -9,3 +9,5 @@
 /spec/dummy/
 /tmp/
 /.ruby-version
+.env
+.env.test

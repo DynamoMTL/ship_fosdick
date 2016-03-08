@@ -1,12 +1,10 @@
 require 'spec_helper'
-require 's3'
 
 RSpec.describe ShipFosdick::ShipmentUpdater do
   let!(:order) { create :order_ready_to_ship }
   let(:tracking) { '01234' }
   let(:content) { "#{order.shipments.first.number} 012122016 hm #{tracking}" }
-  let(:s3_object) { S3::Object }
-  let!(:downloaded_files) { [s3_object] } 
+  let!(:downloaded_files) { [content] } 
 
   it 'instantiates itself properly' do
     expect(described_class.new(downloaded_files)).to be_truthy
@@ -16,7 +14,6 @@ RSpec.describe ShipFosdick::ShipmentUpdater do
     subject{ described_class.new(downloaded_files) }
 
     before :each do
-      expect(s3_object).to receive(:content) { content }
       subject.process
     end
 

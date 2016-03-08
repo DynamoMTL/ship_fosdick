@@ -4,20 +4,18 @@ module ShipFosdick
       @bucket = bucket
     end
 
-    def upload(name, file)
-      orders = bucket.objects
-      upload(file, orders)
+    def upload(name, content)
+      upload_shipments(name, content)
     end
 
     private
 
     attr_reader :bucket
 
-    def upload(file, orders)
-      orders.write(
-        file: file,
-        acl: :public_read
-      )
+    def upload_shipments(name, content)
+      object = bucket.objects.build(name)
+      object.content = content
+      object.save
     end
   end
 end

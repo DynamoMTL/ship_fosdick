@@ -18,7 +18,33 @@ Or install it yourself as:
 
 ## Usage
 
-Gem to deliver shipments from Spree/Solidus to Fosdick
+### Upload
+
+Since Fosdick reads from an XML file uploaded to an S3 bucket, 
+This Gem exposes a simple factory: `ShipFosdick::UploadFactory` 
+That has a single public method: `call` that will kick off the following:
+
+1. Collect all shipments created during the past day
+1. Create a single xml string that is parsable from Fosdick
+1. Upload this string to a file in S3 called fosdick_shipments.xml
+
+A simple rake task to get this working could be as easy as:
+
+```
+shipper = ShipFosdick::UploadFactory.new
+shipper.call
+```
+
+## Setup
+
+Most Solidus and Spree stores will be running Paperclip. 
+This, at the moment relies on the 3 environment variables that should be set if running Paperclip:
+
+```
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+S3_BUCKET
+```
 
 ## Development
 
