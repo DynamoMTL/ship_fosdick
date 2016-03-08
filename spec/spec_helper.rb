@@ -12,6 +12,8 @@ require 'dotenv'
 Dotenv.load
 FactoryGirl.find_definitions
 
+Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
+
 require 'spree/testing_support/factories'
 
 RSpec.configure do |config|
