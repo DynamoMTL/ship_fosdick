@@ -1,4 +1,4 @@
-module Fosdick
+module ShipFosdick
   class Engine < Rails::Engine
     require 'spree/core'
     isolate_namespace Spree
