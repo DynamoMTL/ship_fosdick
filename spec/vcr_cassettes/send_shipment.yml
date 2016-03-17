@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.unitycart.com/client_1/cart/ipost.asp
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <UnitycartOrderPost xml:lang="en-US">
+          <ClientCode>123456789</ClientCode>
+          <Test>Y</Test>
+          <TransactionID>daea58e6a2ee777e7fb16ee0c22c84</TransactionID>
+          <Order>
+            <ShippingMethod/>
+            <Subtotal>0</Subtotal>
+            <Total>0</Total>
+            <ExternalID>1</ExternalID>
+            <AdCode>CLIENT1</AdCode>
+            <Prepaid>Y</Prepaid>
+            <ShipFirstname>John</ShipFirstname>
+            <ShipLastname>Doe</ShipLastname>
+            <ShipAddress1>10 Lovely Street</ShipAddress1>
+            <ShipAddress2>Northwest</ShipAddress2>
+            <ShipState>AL</ShipState>
+            <ShipCity>Herndon</ShipCity>
+            <ShipZip>35005</ShipZip>
+            <ShipCountry>United States of America</ShipCountry>
+            <ShipPhone>555-555-0199</ShipPhone>
+            <Email>dawn_schmeler@wisoky.name</Email>
+            <Code>1</Code>
+            <Items>
+              <Item>
+                <Inv>1</Inv>
+                <Qty>1</Qty>
+                <PricePer>0</PricePer>
+              </Item>
+            </Items>
+          </Order>
+        </UnitycartOrderPost>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Length:
+      - '203'
+      Content-Type:
+      - text/html
+      Expires:
+      - Thu, 17 Mar 2016 16:18:30 GMT
+      Server:
+      - Microsoft-IIS/7.5
+      Set-Cookie:
+      - ASPSESSIONIDSUWEADBU=LIIDIMDBILPOPGEHOLKJNACL; secure; path=/
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Thu, 17 Mar 2016 16:18:30 GMT
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><UnitycartOrderResponse xml:lang="en-US"><OrderResponse
+        ExternalID="1"><SuccessCode>True</SuccessCode><OrderNumber>905225254361</OrderNumber></OrderResponse></UnitycartOrderResponse>
+    http_version:
+  recorded_at: Thu, 17 Mar 2016 16:18:40 GMT
+recorded_with: VCR 3.0.1
