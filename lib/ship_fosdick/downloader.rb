@@ -7,7 +7,7 @@ module ShipFosdick
     def download
       [].tap do |returned_content|
         bucket.objects.each do |object|
-          next unless object.key.downcase.include?('shp')
+          next unless object.key.downcase.include?('ship')
           returned_content << object.content
         end
       end
