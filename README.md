@@ -15,6 +15,28 @@ $ bundle
 
 ## Usage
 
+### Setup
+
+create an initializer `config/initializer/fosdick.rb` and add the configuration like this:
+
+```ruby
+ShipFosdick.configure do |config|
+  config.aws_secret = ENV.fetch('AWS_SECRET_ACCESS_KEY')
+  config.aws_key = ENV.fetch('AWS_ACCESS_KEY_ID')
+  config.bucket = ENV.fetch('S3_BUCKET')
+  config.client_name = ENV.fetch('CLIENT_NAME')
+  config.client_code = ENV.fetch("CLIENT_CODE")
+  config.adcode = ENV.fetch['ADCODE']
+end
+```
+
+There is also a `test_mode` config option that is set to `false` by default.
+To enabled test mode add it to the configuration:
+
+```ruby
+config.test_mode = true
+```
+
 ### Sender
 
 To send a `Spree::Shipment` object to Fosdick we need to make a Fosdick XML file
@@ -48,28 +70,6 @@ There is a simple, rake runable factory that wraps the logic to do the following
 1. Parse this info into arrays of strings
 1. Utilize [specific parts of the array][1] to update relevant shipments
 1. Profit?
-
-## Setup
-
-create an initializer `config/initializer/fosdick.rb` and add the configuration like this:
-
-```ruby
-ShipFosdick.configure do |config|
-  config.aws_secret = ENV.fetch('AWS_SECRET_ACCESS_KEY')
-  config.aws_key = ENV.fetch('AWS_ACCESS_KEY_ID')
-  config.bucket = ENV.fetch('S3_BUCKET')
-  config.client_name = ENV.fetch('CLIENT_NAME')
-  config.client_code = ENV.fetch("CLIENT_CODE")
-  config.adcode = ENV.fetch['ADCODE']
-end
-```
-
-There is also a `test_mode` config option that is set to `false` by default.
-To enabled test mode add it to the configuration:
-
-```ruby
-config.test_mode = true
-```
 
 ## Development
 
