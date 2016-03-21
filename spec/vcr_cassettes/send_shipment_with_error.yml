@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.unitycart.com/client_name/cart/ipost.asp
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <UnitycartOrderPost xml:lang="en-US">
+          <ClientCode>client_code</ClientCode>
+          <Test>Y</Test>
+          <TransactionID>5d9c74a41cad431bd05d214b1a04b5</TransactionID>
+          <Order>
+            <ShippingMethod>UPS Ground</ShippingMethod>
+            <Subtotal>0</Subtotal>
+            <Total>0</Total>
+            <ExternalID>H78438053373</ExternalID>
+            <AdCode>adcode</AdCode>
+            <Prepaid>Y</Prepaid>
+            <ShipFirstname>John</ShipFirstname>
+            <ShipLastname>Doe</ShipLastname>
+            <ShipAddress1>10 Lovely Street</ShipAddress1>
+            <ShipAddress2>Northwest</ShipAddress2>
+            <ShipState>AL</ShipState>
+            <ShipCity>Herndon</ShipCity>
+            <ShipZip>35005</ShipZip>
+            <ShipCountry>United States of America</ShipCountry>
+            <ShipPhone>555-555-0199</ShipPhone>
+            <Email>melany.langworth@oga.ca</Email>
+            <Code>1</Code>
+            <Items>
+              <Item>
+                <Inv>1</Inv>
+                <Qty>1</Qty>
+                <PricePer>0</PricePer>
+              </Item>
+            </Items>
+          </Order>
+        </UnitycartOrderPost>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Length:
+      - '273'
+      Content-Type:
+      - text/html
+      Expires:
+      - Mon, 21 Mar 2016 12:59:50 GMT
+      Server:
+      - Microsoft-IIS/7.5
+      Set-Cookie:
+      - ASPSESSIONIDSQSEDGBV=JECCEAKDDEGIFPGACPCEADED; secure; path=/
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Mon, 21 Mar 2016 12:59:50 GMT
+    body:
+      encoding: UTF-8
+      string: '<?xml version="1.0"?><UnitycartOrderResponse xml:lang="en-US"><OrderResponse
+        ExternalID="H78438053373"><SuccessCode>False</SuccessCode><ErrorCode>Invalid</ErrorCode><Errors><Error>Unknown
+        Shipping Method: UPS Ground</Error></Errors></OrderResponse></UnitycartOrderResponse>'
+    http_version:
+  recorded_at: Mon, 21 Mar 2016 12:59:53 GMT
+recorded_with: VCR 3.0.1

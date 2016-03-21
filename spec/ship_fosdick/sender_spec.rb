@@ -17,4 +17,17 @@ RSpec.describe ShipFosdick::Sender do
       expect(response['OrderNumber']).to be_present
     end
   end
+
+  context "with error on xml" do
+    let(:shipment_xml) do
+      ShipFosdick::Document::Shipment.new(shipment).to_xml
+    end
+
+    it "will raise an exception" do
+      VCR.use_cassette('send_shipment_with_error') do
+        expect{ ShipFosdick::Sender.send_doc(shipment_xml) }.to raise_error(ShipFosdick::SendError, /{"SuccessCode"=>"False", "ErrorCode"=>"Invalid", "Errors"=>{"Error"=>"Unknown Shipping Method: UPS Ground"}, "ExternalID"=>"H78438053373"}/)
+      end
+    end
+  end
+
 end
