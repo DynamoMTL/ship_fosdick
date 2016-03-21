@@ -7,7 +7,7 @@ RSpec.describe ShipFosdick::Sender do
   let(:shipment_xml) do
     # for the specific test environment the shipping_method is just empty.
     shipment.shipping_method.update_column(:name,"")
-    ShipFosdick::Document::Shipment.new(shipment, ShipFosdick.configuration.config).ship
+    ShipFosdick::Document::Shipment.new(shipment, ShipFosdick.configuration.config).to_xml
   end
 
   it 'should send a shipment' do

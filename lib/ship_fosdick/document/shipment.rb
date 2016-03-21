@@ -8,7 +8,7 @@ module ShipFosdick
         @config = config
       end
 
-      def ship
+      def to_xml
        fosdick_shipment = ::Nokogiri::XML::Builder.new do |xml|
          xml.UnitycartOrderPost('xml:lang' => 'en-US') {
            xml.ClientCode(config[:client_code])
