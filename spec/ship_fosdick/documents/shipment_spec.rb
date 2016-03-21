@@ -4,14 +4,13 @@ RSpec.describe ShipFosdick::Document::Shipment do
   let(:order) { create :order_with_line_items }
   let(:shipment) { order.shipments.first }
   let(:long_city) { 'InFactThisIsMoreThanTwelveCharacters' }
-  let(:config) { { 'client_code' => '123', 'adcode' => '123'} }
 
   it 'instantiates itself' do
-    expect(described_class.new(shipment, config)).to be_truthy
+    expect(described_class.new(shipment, ShipFosdick.configuration.config)).to be_truthy
   end
 
   describe '#ship' do
-    subject{ described_class.new(shipment, config).ship }
+    subject{ described_class.new(shipment, ShipFosdick.configuration.config).ship }
 
     it 'converts the shipment to xml' do
       expect(subject).to include '<?xml version="1.0"?>'
