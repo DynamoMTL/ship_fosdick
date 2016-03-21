@@ -41,8 +41,11 @@ ShipFosdick.configure do |config|
   config.aws_secret = ENV.fetch('AWS_SECRET_ACCESS_KEY')
   config.aws_key = ENV.fetch('AWS_ACCESS_KEY_ID')
   config.bucket = ENV.fetch('S3_BUCKET')
-  config.client_name = ENV.fetch('CLIENT_NAME')
-  config.client_code = ENV.fetch('CLIENT_CODE')
-  config.adcode = ENV.fetch('ADCODE')
+  # config.client_name = ENV.fetch('CLIENT_NAME')
+  # config.client_code = ENV.fetch('CLIENT_CODE')
+  # config.adcode = ENV.fetch('ADCODE')
+  config.client_name = "client_name"
+  config.client_code = "client_code"
+  config.adcode = "adcode"
   config.test_mode = true
 end

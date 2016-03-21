@@ -2,21 +2,21 @@
 http_interactions:
 - request:
     method: post
-    uri: https://www.unitycart.com/client_1/cart/ipost.asp
+    uri: https://www.unitycart.com/client_name/cart/ipost.asp
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0"?>
         <UnitycartOrderPost xml:lang="en-US">
-          <ClientCode>123456789</ClientCode>
+          <ClientCode>client_code</ClientCode>
           <Test>Y</Test>
-          <TransactionID>daea58e6a2ee777e7fb16ee0c22c84</TransactionID>
+          <TransactionID>a3fe14ec268ff7cc90f96b4b2195bf</TransactionID>
           <Order>
             <ShippingMethod/>
             <Subtotal>0</Subtotal>
             <Total>0</Total>
-            <ExternalID>1</ExternalID>
-            <AdCode>CLIENT1</AdCode>
+            <ExternalID>H17827641146</ExternalID>
+            <AdCode>adcode</AdCode>
             <Prepaid>Y</Prepaid>
             <ShipFirstname>John</ShipFirstname>
             <ShipLastname>Doe</ShipLastname>
@@ -27,7 +27,7 @@ http_interactions:
             <ShipZip>35005</ShipZip>
             <ShipCountry>United States of America</ShipCountry>
             <ShipPhone>555-555-0199</ShipPhone>
-            <Email>dawn_schmeler@wisoky.name</Email>
+            <Email>ted.heaney@feest.us</Email>
             <Code>1</Code>
             <Items>
               <Item>
@@ -53,23 +53,23 @@ http_interactions:
       Cache-Control:
       - private
       Content-Length:
-      - '203'
+      - '214'
       Content-Type:
       - text/html
       Expires:
-      - Thu, 17 Mar 2016 16:18:30 GMT
+      - Mon, 21 Mar 2016 11:44:32 GMT
       Server:
       - Microsoft-IIS/7.5
       Set-Cookie:
-      - ASPSESSIONIDSUWEADBU=LIIDIMDBILPOPGEHOLKJNACL; secure; path=/
+      - ASPSESSIONIDSQSEDGBV=EPACEAKDANPCIDCGJKMDEFMD; secure; path=/
       X-Powered-By:
       - ASP.NET
       Date:
-      - Thu, 17 Mar 2016 16:18:30 GMT
+      - Mon, 21 Mar 2016 11:44:32 GMT
     body:
       encoding: UTF-8
       string: <?xml version="1.0"?><UnitycartOrderResponse xml:lang="en-US"><OrderResponse
-        ExternalID="1"><SuccessCode>True</SuccessCode><OrderNumber>905225254361</OrderNumber></OrderResponse></UnitycartOrderResponse>
+        ExternalID="H17827641146"><SuccessCode>True</SuccessCode><OrderNumber>905226353989</OrderNumber></OrderResponse></UnitycartOrderResponse>
     http_version:
-  recorded_at: Thu, 17 Mar 2016 16:18:40 GMT
+  recorded_at: Mon, 21 Mar 2016 11:44:35 GMT
 recorded_with: VCR 3.0.1
