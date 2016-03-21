@@ -33,7 +33,7 @@ RSpec.describe ShipFosdick::DownloadFactory, :slow do
   end
 
   def upload_file
-    fosdick_file = bucket.objects.build('838383TESTDLYSHP.txt')
+    fosdick_file = bucket.objects.build('838383TESTDLYSHIP.txt')
     fosdick_file.content = manifest.generate(order)
     fosdick_file.save
   end

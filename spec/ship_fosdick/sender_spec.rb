@@ -15,7 +15,7 @@ RSpec.describe ShipFosdick::Sender do
       response = ShipFosdick::Sender.send_doc(shipment_xml)
       expect(response).to be_a Hash
       expect(response[:external_id]).to be_present
-      expect(response[:order_nummber]).to be_present
+      expect(response[:order_number]).to be_present
     end
   end
 

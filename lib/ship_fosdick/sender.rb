@@ -13,7 +13,8 @@ module ShipFosdick
     end
 
     private
-    def build_success_hash(res)
+
+    def self.build_success_hash(res)
       {
         external_id: res["ExternalID"],
         order_number: res["OrderNumber"]
