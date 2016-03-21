@@ -12,7 +12,7 @@ module ShipFosdick
        fosdick_shipment = ::Nokogiri::XML::Builder.new do |xml|
          xml.UnitycartOrderPost('xml:lang' => 'en-US') {
            xml.ClientCode(config[:client_code])
-           xml.Test('Y') if config[:test]
+           xml.Test('Y') if config[:test_mode]
            xml.TransactionID(SecureRandom.hex(15))
            xml.Order {
              build_order_info(xml)
@@ -32,7 +32,7 @@ module ShipFosdick
         xml.ShippingMethod(shipment.shipping_method.name)
         xml.Subtotal(0)
         xml.Total(0)
-        xml.ExternalID(shipment.id)
+        xml.ExternalID(shipment.number)
         xml.AdCode(shipment.try(:adcode) || config[:adcode])
         xml.Prepaid('Y')
       end
