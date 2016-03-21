@@ -9,10 +9,17 @@ module ShipFosdick
       client = ShipFosdick.configuration.client_name
       res    = post("/#{client}/cart/ipost.asp", body: doc)
       validate(res)
-      return res['UnitycartOrderResponse']['OrderResponse']
+      return build_success_hash(res['UnitycartOrderResponse']['OrderResponse'])
     end
 
     private
+    def build_success_hash(res)
+      {
+        external_id: res["ExternalID"],
+        order_number: res["OrderNumber"]
+      }
+    end
+
     def self.validate(res)
       order_res = res['UnitycartOrderResponse']['OrderResponse']
 

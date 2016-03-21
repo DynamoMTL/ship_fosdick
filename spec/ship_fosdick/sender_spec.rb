@@ -13,8 +13,9 @@ RSpec.describe ShipFosdick::Sender do
   it 'should send a shipment' do
     VCR.use_cassette('send_shipment') do
       response = ShipFosdick::Sender.send_doc(shipment_xml)
-      expect(response['SuccessCode']).to eql "True"
-      expect(response['OrderNumber']).to be_present
+      expect(response).to be_a Hash
+      expect(response[:external_id]).to be_present
+      expect(response[:order_nummber]).to be_present
     end
   end
 
