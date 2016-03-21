@@ -6,11 +6,11 @@ RSpec.describe ShipFosdick::Document::Shipment do
   let(:long_city) { 'InFactThisIsMoreThanTwelveCharacters' }
 
   it 'instantiates itself' do
-    expect(described_class.new(shipment, ShipFosdick.configuration.config)).to be_truthy
+    expect(described_class.new(shipment)).to be_truthy
   end
 
   describe '#to_xml' do
-    subject{ described_class.new(shipment, ShipFosdick.configuration.config).to_xml }
+    subject{ described_class.new(shipment).to_xml }
 
     it 'converts the shipment to xml' do
       expect(subject).to include '<?xml version="1.0"?>'

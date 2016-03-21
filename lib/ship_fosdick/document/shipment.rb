@@ -3,9 +3,9 @@ require 'nokogiri'
 module ShipFosdick
   module Document
     class Shipment
-      def initialize(shipment, config)
+      def initialize(shipment)
         @shipment = shipment
-        @config = config
+        @config = ShipFosdick.configuration.config
       end
 
       def to_xml
