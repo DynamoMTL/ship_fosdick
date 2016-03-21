@@ -11,7 +11,8 @@ module ShipFosdick
       def ship
        fosdick_shipment = ::Nokogiri::XML::Builder.new do |xml|
          xml.UnitycartOrderPost('xml:lang' => 'en-US') {
-           xml.ClientCode(config['client_code'])
+           xml.ClientCode(config[:client_code])
+           xml.Test('Y') if config[:test]
            xml.TransactionID(SecureRandom.hex(15))
            xml.Order {
              build_order_info(xml)
@@ -23,16 +24,16 @@ module ShipFosdick
        fosdick_shipment.to_xml
       end
 
-      private 
+      private
 
       attr_reader :shipment, :config
-       
+
       def build_order_info(xml)
         xml.ShippingMethod(shipment.shipping_method.name)
         xml.Subtotal(0)
         xml.Total(0)
         xml.ExternalID(shipment.id)
-        xml.AdCode(shipment.try(:adcode, config['adcode'])) 
+        xml.AdCode(shipment.try(:adcode) || config[:adcode])
         xml.Prepaid('Y')
       end
 
@@ -74,7 +75,7 @@ module ShipFosdick
         when 'U.S. Armed Forces – Europe' then 'AE'
         when 'U.S. Armed Forces – Pacific' then 'AP'
         else
-          shipping_address.state.name
+          shipping_address.state.abbr
         end
       end
 
@@ -93,4 +94,3 @@ module ShipFosdick
     end
   end
 end
-

@@ -9,6 +9,7 @@ require 'factory_girl'
 require 'ship_fosdick'
 require 'ffaker'
 require 'dotenv'
+require 'vcr'
 Dotenv.load
 FactoryGirl.find_definitions
 
@@ -17,7 +18,7 @@ Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |f| require f }
 require 'spree/testing_support/factories'
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods 
+  config.include FactoryGirl::Syntax::Methods
   config.mock_with :rspec
   DatabaseCleaner.strategy = :truncation
 
@@ -28,4 +29,9 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/vcr_cassettes'
+  c.hook_into :webmock
 end
