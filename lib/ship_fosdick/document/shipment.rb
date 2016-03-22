@@ -29,7 +29,7 @@ module ShipFosdick
       attr_reader :shipment, :config
 
       def build_order_info(xml)
-        xml.ShippingMethod(shipment.shipping_method.name)
+        xml.ShippingMethod(shipment.shipping_method.admin_name)
         xml.Subtotal(0)
         xml.Total(0)
         xml.ExternalID(shipment.number)
