@@ -5,18 +5,61 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ship_fosdick'
+gem 'ship_fosdick', github: 'DynamoMTL/ship_fosdick'
 ```
 
 And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install ship_fosdick
+```shell
+$ bundle
+```
 
 ## Usage
+
+### Setup
+
+create an initializer `config/initializer/fosdick.rb` and add the configuration like this:
+
+```ruby
+ShipFosdick.configure do |config|
+  config.aws_secret = ENV.fetch('AWS_SECRET_ACCESS_KEY')
+  config.aws_key = ENV.fetch('AWS_ACCESS_KEY_ID')
+  config.bucket = ENV.fetch('S3_BUCKET')
+  config.client_name = ENV.fetch('CLIENT_NAME')
+  config.client_code = ENV.fetch('CLIENT_CODE')
+  config.adcode = ENV.fetch('ADCODE')
+end
+```
+
+There is also a `test_mode` config option that is set to `false` by default.
+To enabled test mode add it to the configuration:
+
+```ruby
+config.test_mode = true
+```
+
+### Sender
+
+To send a `Spree::Shipment` object to Fosdick we need to make a Fosdick XML file
+so for a `Spree::Shipment` instance named `shipment` it will look like this:
+```ruby
+shipment_xml = ShipFosdick::Document::Shipment.new(shipment).to_xml
+```
+next we need to push that xml document to the Fosdick endpoint using the `Sender` class
+
+```ruby
+response = ShipFosdick::Sender.send_doc(shipment_xml)
+```
+
+with a succesfull push to Fosdick the `send_doc` method will return a `Hash` with the mapping details between the `shipment` and Fosdick
+```ruby
+{
+  external_id: 'H23424242',
+  order_number: "903423534242"
+}
+```
+
+when there is an error response the gem will raise a `ShipFosdick::SendError` with
+the response error message.
 
 ### Download
 
@@ -27,17 +70,6 @@ There is a simple, rake runable factory that wraps the logic to do the following
 1. Parse this info into arrays of strings
 1. Utilize [specific parts of the array][1] to update relevant shipments
 1. Profit?
-
-## Setup
-
-Most Solidus and Spree stores will be running Paperclip.
-This, at the moment relies on the S3 environment variables that should be set if running Paperclip:
-
-```
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-S3_BUCKET
-```
 
 ## Development
 

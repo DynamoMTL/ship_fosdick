@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 RSpec.describe ShipFosdick::DownloadFactory, :slow do
-  let(:service) { S3::Service.new(:access_key_id => ENV.fetch('AWS_ACCESS_KEY_ID'), 
-                                  :secret_access_key => ENV.fetch('AWS_SECRET_ACCESS_KEY')) }
-  let(:bucket) { service.buckets.find(ENV.fetch('S3_BUCKET')) }
+
+  let(:service) { S3::Service.new(:access_key_id => ShipFosdick.configuration.aws_key,
+                                 :secret_access_key => ShipFosdick.configuration.aws_secret) }
+  let(:bucket) { service.buckets.find(ShipFosdick.configuration.bucket) }
   let(:manifest) { TestShipment.new }
   let!(:order) { create :order_ready_to_ship }
 
   it 'instantiates itself successfully' do
     expect(described_class.new).to be_truthy
   end
-  
+
   describe "#call" do
     subject { described_class.new.call }
 
@@ -32,8 +33,8 @@ RSpec.describe ShipFosdick::DownloadFactory, :slow do
   end
 
   def upload_file
-    xls_file = bucket.objects.build('838383TESTDLYSHP.txt')
-    xls_file.content = manifest.generate(order)
-    xls_file.save
+    fosdick_file = bucket.objects.build('838383TESTDLYSHIP.txt')
+    fosdick_file.content = manifest.generate(order)
+    fosdick_file.save
   end
 end

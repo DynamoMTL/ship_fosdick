@@ -7,12 +7,12 @@ module ShipFosdick
     private
 
     def service
-      @_service ||=  S3::Service.new(:access_key_id => ENV.fetch('AWS_ACCESS_KEY_ID'), 
-                                     :secret_access_key => ENV.fetch('AWS_SECRET_ACCESS_KEY')) 
+      @_service ||=  S3::Service.new(:access_key_id => ShipFosdick.configuration.aws_key,
+                                     :secret_access_key => ShipFosdick.configuration.aws_secret)
     end
 
     def bucket
-      service.buckets.find(ENV.fetch('S3_BUCKET'))
+      service.buckets.find(ShipFosdick.configuration.bucket)
     end
 
     def processable_files

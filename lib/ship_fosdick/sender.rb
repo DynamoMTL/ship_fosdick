@@ -5,14 +5,22 @@ module ShipFosdick
     base_uri 'https://www.unitycart.com'
     format :xml
 
-    def self.send_doc(doc, config)
-      client = config.fetch(:client_name)
+    def self.send_doc(doc)
+      client = ShipFosdick.configuration.client_name
       res    = post("/#{client}/cart/ipost.asp", body: doc)
       validate(res)
-      return res['UnitycartOrderResponse']['OrderResponse']
+      return build_success_hash(res['UnitycartOrderResponse']['OrderResponse'])
     end
 
     private
+
+    def self.build_success_hash(res)
+      {
+        external_id: res["ExternalID"],
+        order_number: res["OrderNumber"]
+      }
+    end
+
     def self.validate(res)
       order_res = res['UnitycartOrderResponse']['OrderResponse']
 

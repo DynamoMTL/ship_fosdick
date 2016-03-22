@@ -4,15 +4,29 @@ require 's3'
 Dir[File.dirname(__FILE__) + '/ship_fosdick/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*.rb'].each {|file| require file }
 
-# Fosdick integration entry point.
-# Will check to see if Rails confuration is available.
-# Including bootstrapping all needed files for your shipping pleasure
 module ShipFosdick
-  def self.configure(&block)
-    if block_given?
-      block.call(ShipFosdick::Railtie.config.ship_fosdick)
-    else
-      ShipFosdick::Railtie.config.ship_fosdick
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configure
+    self.configuration ||= Configuration.new
+    yield(configuration)
+  end
+
+  class Configuration
+    attr_accessor :aws_secret, :aws_key, :bucket, :client_name, :adcode, :client_code, :test_mode
+    def config
+      {
+        aws_secret: aws_secret,
+        aws_key: aws_key,
+        bucket: bucket,
+        client_name: client_name,
+        adcode: adcode,
+        client_code: client_code,
+        test_mode: test_mode
+      }
     end
   end
+
 end

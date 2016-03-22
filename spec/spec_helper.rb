@@ -34,4 +34,15 @@ end
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
+end
+
+ShipFosdick.configure do |config|
+  config.aws_secret = ENV.fetch('AWS_SECRET_ACCESS_KEY')
+  config.aws_key = ENV.fetch('AWS_ACCESS_KEY_ID')
+  config.bucket = ENV.fetch('S3_BUCKET')
+  config.client_name = "client_name"
+  config.client_code = "client_code"
+  config.adcode = "adcode"
+  config.test_mode = true
 end
