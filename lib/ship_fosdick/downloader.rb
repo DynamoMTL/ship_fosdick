@@ -3,9 +3,9 @@ module ShipFosdick
     extend self
 
     def download
-      objects.select do |object|
-        object.key.downcase.include?('ship') && object.key.downcase.ends_with?('txt')
-      end.map(&:key)
+      objects.map(&:key).select do |key|
+        key.downcase.include?('ship') && key.downcase.ends_with?('txt')
+      end
     end
 
     private
