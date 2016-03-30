@@ -29,8 +29,8 @@ module ShipFosdick
     def update_shipment(record)
       shipment = ::Spree::Shipment.find_by(number: record[0].strip)
       target_state = "shipped"
-      return true if !shipment
-      return true if shipment.state == target_state
+      return if !shipment
+      return if shipment.state == target_state
 
       tracking = record[3].strip
 
