@@ -15,7 +15,9 @@ module ShipFosdick
   end
 
   class Configuration
-    attr_accessor :aws_secret, :aws_key, :bucket, :client_name, :adcode, :client_code, :test_mode
+    attr_accessor :aws_secret, :aws_key, :bucket, :client_name, :adcode, :client_code, :test_mode,
+    :folder_prefix
+
     def config
       {
         aws_secret: aws_secret,
@@ -24,9 +26,10 @@ module ShipFosdick
         client_name: client_name,
         adcode: adcode,
         client_code: client_code,
-        test_mode: test_mode
+        test_mode: test_mode,
+        folder_prefix: folder_prefix
       }
     end
-  end
 
+  end
 end
