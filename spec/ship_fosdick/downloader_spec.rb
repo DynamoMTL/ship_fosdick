@@ -19,10 +19,9 @@ RSpec.describe ShipFosdick::Downloader do
       expect(subject).to be_an Array
     end
 
-    it 'only returns file objects that are from fosdick' do
+    it 'only returns keys from objects that are from fosdick' do
       expect(subject.length).to eq 1
-      expect(subject.first).to be_an ShipFosdick::ManifestFile
-      expect(subject.first.key).to eql '20202SHIP.txt'
+      expect(subject.first).to eql '20202SHIP.txt'
     end
   end
 end

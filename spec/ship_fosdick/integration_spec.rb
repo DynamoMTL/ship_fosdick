@@ -17,13 +17,15 @@ RSpec.describe "Feature Integration Spec", :slow do
 
     it 'updates valid shipments if in the shipping manifests' do
 
-      # 1) Download the manifest files from s3
-      manifest_files = ShipFosdick::Downloader.download
+      # 1) Download the keys from s3
+      keys = ShipFosdick::Downloader.download
 
+      # so we can create a worker for each key!
       # 2) Run the ShipmentsUpdater for each manifest file
-      manifest_files.each do |manifest_file|
-        ShipFosdick::ShipmentsUpdater.new(manifest_file).process
+      keys.each do |key|
+        ShipFosdick::ShipmentsUpdater.new(ShipFosdick::ManifestFile.new(key)).process
       end
+      
       expect(order.shipments.first.state).to eq 'shipped'
     end
   end

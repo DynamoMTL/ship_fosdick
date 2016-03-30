@@ -6,7 +6,7 @@ module ShipFosdick
         objects.each do |object|
           next unless object.key.downcase.include?('ship')
           next unless object.key.downcase.include?('.txt')
-          returned_content << ShipFosdick::ManifestFile.new(object.key)
+          returned_content << object.key
         end
       end
     end
