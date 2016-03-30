@@ -7,6 +7,15 @@ Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*.rb'].each {|file| require
 module ShipFosdick
   class << self
     attr_accessor :configuration
+    
+    def service
+      @_service ||=  S3::Service.new(:access_key_id => ShipFosdick.configuration.aws_key,
+                                     :secret_access_key => ShipFosdick.configuration.aws_secret)
+    end
+
+    def bucket
+      service.buckets.find(ShipFosdick.configuration.bucket)
+    end
   end
 
   def self.configure
