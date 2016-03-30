@@ -28,13 +28,14 @@ module ShipFosdick
     private
     def update_shipment(record)
       shipment = ::Spree::Shipment.find_by(number: record[0].strip)
+      target_state = "shipped"
       return true if !shipment
+      return true if shipment.state == target_state
 
       tracking = record[3].strip
 
       shipment_attributes = { tracking: tracking }
 
-      target_state = "shipped"
       # check if a state transition is required, and search for correct event to fire
       transition = nil
       if shipment.state != target_state
