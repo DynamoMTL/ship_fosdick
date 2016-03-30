@@ -6,12 +6,17 @@ module ShipFosdick
       @key = key
     end
 
-    def s3_object
-      begin
-        ShipFosdick.bucket.objects.find(self.key)
-      rescue S3::Error::NoSuchKey
+    def parse_content
+      [].tap do |rows|
+        s3_object.content.each_line do |line|
+          next if line.blank? || line.match(/(Ext Order #|TRAILER RECORD|SKU)/)
+          rows << line.split(' ')
+        end
       end
     end
 
+    def s3_object
+      ShipFosdick.bucket.objects.find(self.key)
+    end
   end
 end
