@@ -40,8 +40,8 @@ module ShipFosdick
       def build_shipping_info(xml)
         xml.ShipFirstname(shipping_address.firstname)
         xml.ShipLastname(shipping_address.lastname)
-        xml.ShipAddress1(shipping_address.address1)
-        xml.ShipAddress2(shipping_address.address2)
+        xml.ShipAddress1(address1)
+        xml.ShipAddress2(address2)
         build_state_node(xml)
         xml.ShipCity(format_city)
         xml.ShipZip(shipping_address.zipcode)
@@ -91,6 +91,30 @@ module ShipFosdick
       def shipping_address
         order.shipping_address
       end
+
+      def address1
+        return shipping_address.address1 unless overlong_address
+        shipping_address.address1.dup.slice(0, address_max_length).strip
+      end
+
+      def address2
+        return shipping_address.address2 unless overlong_address
+        str = shipping_address.address1.dup
+        _, address1_fragment = str.slice!(0, address_max_length), str
+        [
+          address1_fragment,
+          shipping_address.address2,
+        ].reject(&:blank?).join(', ').strip.slice(0, address_max_length)
+      end
+
+      def overlong_address
+        shipping_address.address1.length > address_max_length
+      end
+
+      def address_max_length
+        @config[:address_max_length]
+      end
+      
     end
   end
 end
