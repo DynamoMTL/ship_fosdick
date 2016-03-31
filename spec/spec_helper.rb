@@ -45,4 +45,5 @@ ShipFosdick.configure do |config|
   config.client_code = "client_code"
   config.adcode = "adcode"
   config.test_mode = true
+  config.address_max_length = ENV.fetch('FOSDICK_ADDRESS_MAX_LENGTH', 30)
 end

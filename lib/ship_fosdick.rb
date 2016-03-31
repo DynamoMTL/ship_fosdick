@@ -7,7 +7,7 @@ Dir[File.dirname(__FILE__) + '/ship_fosdick/document/*.rb'].each {|file| require
 module ShipFosdick
   class << self
     attr_accessor :configuration
-    
+
     def service
       @_service ||=  S3::Service.new(:access_key_id => ShipFosdick.configuration.aws_key,
                                      :secret_access_key => ShipFosdick.configuration.aws_secret)
@@ -25,7 +25,7 @@ module ShipFosdick
 
   class Configuration
     attr_accessor :aws_secret, :aws_key, :bucket, :client_name, :adcode, :client_code, :test_mode,
-    :folder_prefix
+    :folder_prefix, :address_max_length
 
     def config
       {
@@ -36,7 +36,8 @@ module ShipFosdick
         adcode: adcode,
         client_code: client_code,
         test_mode: test_mode,
-        folder_prefix: folder_prefix
+        folder_prefix: folder_prefix,
+        address_max_length: address_max_length
       }
     end
 

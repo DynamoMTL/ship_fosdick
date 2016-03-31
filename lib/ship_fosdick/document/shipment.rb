@@ -112,9 +112,9 @@ module ShipFosdick
       end
 
       def address_max_length
-        ENV.fetch('FOSDICK_ADDRESS_MAX_LENGTH', 30)
+        @config[:address_max_length]
       end
-
+      
     end
   end
 end
