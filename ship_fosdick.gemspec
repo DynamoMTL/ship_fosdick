@@ -29,7 +29,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'spree_core', '~> 2.4'
   spec.add_dependency 'nokogiri'
-  spec.add_dependency 'aws-sdk'
   spec.add_dependency 's3'
   spec.add_dependency 'httparty'
 
@@ -42,5 +41,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'dotenv-rails'
   spec.add_development_dependency 'vcr'
   spec.add_development_dependency 'webmock'
-
 end

@@ -1,11 +1,12 @@
 module ShipFosdick
-  # Reads in the Array of Files from the
-  # ShipFosdick::Downloader class and updates
+  # Reads in the content from the ManifestFile and updates
   # mentioned shipments as shipped and updates the
   # tracking number if available.
-  class ShipmentUpdater
-    def initialize(files)
-      @files = files
+  class ShipmentsUpdater
+    attr_reader :manifest_file
+
+    def initialize(manifest_file)
+      @manifest_file = manifest_file
     end
 
     # The line here from fosdick is generally the
@@ -18,28 +19,23 @@ module ShipFosdick
     # job number at index 5
     # run date at index 6
     def process
-      files.each do |file|
-        file.each_line do |line|
-          next if line.blank? || line.match(/(Ext Order #|TRAILER RECORD|SKU)/)
-          record = line.split(' ')
-          update_shipment(record)
-        end
+      rows = manifest_file.parse_content
+      rows.each do |record|
+        update_shipment(record)
       end
     end
 
     private
-
-    attr_reader :files
-
     def update_shipment(record)
       shipment = ::Spree::Shipment.find_by(number: record[0].strip)
-      return true if !shipment
+      target_state = "shipped"
+      return if !shipment
+      return if shipment.state == target_state
 
       tracking = record[3].strip
 
       shipment_attributes = { tracking: tracking }
 
-      target_state = "shipped"
       # check if a state transition is required, and search for correct event to fire
       transition = nil
       if shipment.state != target_state

@@ -1,27 +1,18 @@
 module ShipFosdick
-  class Downloader
-    def initialize(bucket)
-      @bucket = bucket
-    end
+  module Downloader
+    extend self
 
     def download
-      [].tap do |returned_content|
-        objects.each do |object|
-          next unless object.key.downcase.include?('ship')
-          returned_content << object.content
-        end
+      objects.map(&:key).select do |key|
+        key.downcase.include?('ship') && key.downcase.ends_with?('txt')
       end
     end
 
-    def objects
-      return bucket.objects.with_prefix(ShipFosdick.configuration.folder_prefix) if ShipFosdick.configuration.folder_prefix
-
-      bucket.objects
-    end
-
     private
-
-    attr_reader :bucket
-
+    def objects
+      prefix = ShipFosdick.configuration.folder_prefix
+      return ShipFosdick.bucket.objects(prefix: prefix) if prefix
+      ShipFosdick.bucket.objects
+    end
   end
 end

@@ -64,12 +64,30 @@ the response error message.
 ### Download
 
 Fosdick, once shipments have been shipped, deposit a text file back into the S3 bucket.
-There is a simple, rake runable factory that wraps the logic to do the following:
 
-1. Download the content from these shipment manifests.
-1. Parse this info into arrays of strings
-1. Utilize [specific parts of the array][1] to update relevant shipments
-1. Profit?
+To download and process those files you need to do something like this:
+
+```ruby
+  # download all the keys from S3 that contain 'ship' and '.txt' in the key
+  # we return only the keys so it's easy to feed each key into a worker
+  keys = ShipFosdick::Downloader.download
+  MySampleWorker.perform_async(key)
+
+
+  # The worker could be something like this:
+  class MySampleWorker
+    include Sidekiq::Worker
+    sidekiq_options retry: false, backtrace: true
+
+    def perform(key)
+      manifest_file = ShipFosdick::ManifestFile.new(key)
+      ShipFosdick::ShipmentsUpdater.new(manifest_file).process
+
+      # move or delete the s3 object. When updating the already shipped shipments will be ignored.
+      # so they could stay in the bucket, although cleaning up the bucket is recommended.
+    end
+  end
+```
 
 ## Development
 
@@ -87,5 +105,3 @@ All changed items are recorded in the CHANGELOG.md
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-[1]: https://github.com/DynamoMTL/ship_fosdick/blob/master/lib/ship_fosdick/shipment_updater.rb#L11-L19
