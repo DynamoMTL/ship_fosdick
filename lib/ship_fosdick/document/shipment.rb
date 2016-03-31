@@ -55,7 +55,7 @@ module ShipFosdick
         shipment.inventory_units.each do |item|
           xml.Items {
             xml.Item {
-              xml.Inv(item.variant_id)
+              xml.Inv(item.variant.sku)
               xml.Qty(item.line_item.quantity)
               xml.PricePer(0)
             }
