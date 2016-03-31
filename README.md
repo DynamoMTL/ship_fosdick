@@ -71,7 +71,9 @@ To download and process those files you need to do something like this:
   # download all the keys from S3 that contain 'ship' and '.txt' in the key
   # we return only the keys so it's easy to feed each key into a worker
   keys = ShipFosdick::Downloader.download
-  MySampleWorker.perform_async(key)
+  keys.each do |key|
+    MySampleWorker.perform_async(key)
+  end
 
 
   # The worker could be something like this:
