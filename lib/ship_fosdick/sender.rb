@@ -5,6 +5,10 @@ module ShipFosdick
     base_uri 'https://www.unitycart.com'
     format :xml
 
+    def self.send(shipment)
+      # make send_doc private and do the shipment handling here.
+    end
+
     def self.send_doc(doc)
       client = ShipFosdick.configuration.client_name
       res    = post("/#{client}/cart/ipost.asp", body: doc)
