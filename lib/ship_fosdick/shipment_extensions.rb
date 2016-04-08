@@ -6,7 +6,7 @@ module ShipFosdick
       has_many :transitions, class_name: 'ShipFosdick::Transition',  autosave: false
 
       def fosdick_state_machine
-        @fosdick_state_machine ||= ShipFosdick::StateMachine.new(self, transition_class: ShipFosdick::Transition, association_name: :transitionse)
+        @fosdick_state_machine ||= ShipFosdick::StateMachine.new(self, transition_class: ShipFosdick::Transition, association_name: :transitions)
       end
 
     end
