@@ -20,6 +20,9 @@ require 'spree/testing_support/factories'
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.mock_with :rspec
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   DatabaseCleaner.strategy = :truncation
 
   config.before(:each) do
