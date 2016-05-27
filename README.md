@@ -27,6 +27,7 @@ ShipFosdick.configure do |config|
   config.client_name = ENV.fetch('CLIENT_NAME')
   config.client_code = ENV.fetch('CLIENT_CODE')
   config.adcode = ENV.fetch('ADCODE')
+  config.shipment_updater_class = "ShipFosdick::IndividualShipmentUpdater"
 end
 ```
 

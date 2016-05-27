@@ -25,7 +25,7 @@ RSpec.describe "Feature Integration Spec", :slow do
       keys.each do |key|
         ShipFosdick::ShipmentsUpdater.new(ShipFosdick::ManifestFile.new(key)).process
       end
-      
+
       expect(order.shipments.first.state).to eq 'shipped'
     end
   end
