@@ -27,7 +27,7 @@ module ShipFosdick
 
     private
     def update_shipment(record)
-      ShipFosdick.configuration.shipment_updater_class.constantize.update(record)
+      ShipFosdick.configuration.shipment_updater_class.constantize.new(record).update
     end
   end
 

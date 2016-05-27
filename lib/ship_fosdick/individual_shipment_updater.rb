@@ -1,12 +1,18 @@
 module ShipFosdick
   class IndividualShipmentUpdater
-    def self.update(record)
-      shipment = ::Spree::Shipment.find_by(number: record[0].strip)
+
+    def initialize(manifest_row)
+      @manifest_row = manifest_row
+    end
+
+    def update
+      record = @manifest_row
+      shipment = ::Spree::Shipment.find_by(number: @manifest_row[0].strip)
       target_state = "shipped"
       return if !shipment
       return if shipment.state == target_state
 
-      tracking = record[3].strip
+      tracking = @manifest_row[3].strip
 
       shipment_attributes = { tracking: tracking }
 
@@ -32,7 +38,6 @@ module ShipFosdick
       # Note: we call update_shipment_state separately from update in case order is not in completed.
       shipment.order.updater.update_shipment_state
       shipment.order.updater.update
-
     end
   end
 end
