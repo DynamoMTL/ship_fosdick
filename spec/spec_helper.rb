@@ -49,5 +49,4 @@ ShipFosdick.configure do |config|
   config.adcode = "adcode"
   config.test_mode = true
   config.address_max_length = ENV.fetch('FOSDICK_ADDRESS_MAX_LENGTH', 30)
-  config.shipment_updater_class = "ShipFosdick::IndividualShipmentUpdater"
 end
