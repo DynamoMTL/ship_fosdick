@@ -27,7 +27,7 @@ module ShipFosdick
 
     private
     def update_shipment(record)
-      updater.new(record).update
+      updater.new(record).perform
     end
 
     def updater

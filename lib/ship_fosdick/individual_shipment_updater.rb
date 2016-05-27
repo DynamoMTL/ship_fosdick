@@ -5,7 +5,7 @@ module ShipFosdick
       @manifest_row = manifest_row
     end
 
-    def update
+    def perform
       record = @manifest_row
       shipment = ::Spree::Shipment.find_by(number: @manifest_row[0].strip)
       target_state = "shipped"
