@@ -28,7 +28,13 @@ module ShipFosdick
     private
 
     def update_shipment(record)
-      IndividualShipmentUpdater.new(record).perform
+      updater.new(record).update
+    end
+
+    def updater
+      return ShipFosdick::IndividualShipmentUpdater unless ShipFosdick.configuration.shipment_updater_class
+
+      ShipFosdick.configuration.shipment_updater_class.constantize
     end
   end
 end

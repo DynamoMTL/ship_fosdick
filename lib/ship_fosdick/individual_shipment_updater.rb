@@ -21,6 +21,8 @@ module ShipFosdick
       update_order
     end
 
+    alias_method :update, :perform
+
     private
 
     attr_reader :invalid_transition_error_factory, :manifest_row,
