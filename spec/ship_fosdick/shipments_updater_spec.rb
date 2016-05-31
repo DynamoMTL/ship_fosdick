@@ -2,22 +2,27 @@ require 'spec_helper'
 
 RSpec.describe ShipFosdick::ShipmentsUpdater do
   let!(:order) { create :order_ready_to_ship }
+
+  let(:manifest_file) { ShipFosdick::ManifestFile.new("01245SHIP.txt") }
+
+  subject(:updater) { described_class.new(manifest_file) }
+
+  let(:manifest_row) { double(:manifest_row, shipment_number: number, tracking_code: tracking) }
+
   let(:tracking) { '01234' }
-  let(:content) { [[order.shipments.first.number, "012122016","hm",tracking]] }
-  let!(:manifest_file) { ShipFosdick::ManifestFile.new("01245SHIP.txt") }
+  let(:number) { order.shipments.first.number }
 
   it 'instantiates itself properly' do
-    expect(described_class.new(manifest_file)).to be_truthy
+    expect(updater).to be_truthy
   end
 
   describe '#process' do
     before :each do
-      allow(manifest_file).to receive(:parse_content) { content }
+      allow(manifest_file).to receive(:parse_content) { [manifest_row] }
     end
 
-    subject{ described_class.new(manifest_file) }
-    before :each do
-      subject.process
+    before(:each) do
+      updater.process
     end
 
     it 'updates the shipments as shipped' do

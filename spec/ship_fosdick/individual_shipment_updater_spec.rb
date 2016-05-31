@@ -12,7 +12,7 @@ RSpec.describe ShipFosdick::IndividualShipmentUpdater do
                         invalid_transition_error_factory: invalid_transition_error_factory)
   end
 
-  let(:manifest_row) { ['1234', nil, nil, 'ABCD1234'] }
+  let(:manifest_row) { double(:manifest_row, shipment_number: '1234', tracking_code: 'ABCD1234') }
   let(:order) { double(:order, updater: order_updater) }
   let(:order_updater) { double(:order_updater) }
   let(:shipment) { double(:shipment, order: order) }

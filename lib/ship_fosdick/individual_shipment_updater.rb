@@ -6,7 +6,7 @@ module ShipFosdick
                    shipment_repository: Spree::Shipment,
                    invalid_transition_error_factory: InvalidTransitionError)
 
-      @manifest_row = ManifestRow.new(manifest_row)
+      @manifest_row = manifest_row
       @shipment_repository = shipment_repository
       @invalid_transition_error_factory = invalid_transition_error_factory
     end
@@ -39,7 +39,8 @@ module ShipFosdick
     end
 
     def shipment
-      shipment_repository.find_by(number: manifest_row.shipment_number)
+      @_shipment ||=
+        shipment_repository.find_by(number: manifest_row.shipment_number)
     end
 
     def transition_state
@@ -53,16 +54,6 @@ module ShipFosdick
     def update_order
       shipment.order.updater.update_shipment_state
       shipment.order.updater.update
-    end
-
-    class ManifestRow < Struct.new(:row)
-      def shipment_number
-        row[0]
-      end
-
-      def tracking_code
-        row[3]
-      end
     end
   end
 end

@@ -26,7 +26,8 @@ RSpec.describe "Feature Integration Spec", :slow do
         ShipFosdick::ShipmentsUpdater.new(ShipFosdick::ManifestFile.new(key)).process
       end
 
-      expect(order.shipments.first.state).to eq 'shipped'
+      expect(order.shipments.first).to have_attributes(state: "shipped",
+                                                       tracking: "9274899999898079474850")
     end
   end
 
