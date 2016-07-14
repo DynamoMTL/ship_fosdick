@@ -5,16 +5,17 @@ RSpec.describe ShipFosdick::IndividualShipmentUpdater do
 
   let(:shipment_repository) { double(:shipment_repository) }
   let(:invalid_transition_error_factory) { MockException }
+  let(:no_order_error_factory) { MockException }
 
   subject(:updater) do
     described_class.new(manifest_row,
                         shipment_repository: shipment_repository,
-                        invalid_transition_error_factory: invalid_transition_error_factory)
+                        invalid_transition_error_factory: invalid_transition_error_factory,
+                        no_order_error_factory: no_order_error_factory)
   end
 
   let(:manifest_row) { double(:manifest_row, shipment_number: '1234', tracking_code: 'ABCD1234') }
-  let(:order) { double(:order, updater: order_updater) }
-  let(:order_updater) { double(:order_updater) }
+  let(:order) { double(:order) }
   let(:shipment) { double(:shipment, order: order) }
 
   before do
@@ -23,8 +24,7 @@ RSpec.describe ShipFosdick::IndividualShipmentUpdater do
 
   describe "#perform" do
     before do
-      allow(order_updater).to receive(:update_shipment_state)
-      allow(order_updater).to receive(:update)
+      allow(order).to receive(:update!)
 
       allow(shipment).to receive(:update) { true }
       allow(shipment).to receive(:shipped?) { false }
@@ -46,8 +46,7 @@ RSpec.describe ShipFosdick::IndividualShipmentUpdater do
     end
 
     it "updates the shipment's order" do
-      expect(order_updater).to receive(:update_shipment_state)
-      expect(order_updater).to receive(:update)
+      expect(order).to receive(:update!)
 
       perform!
     end
@@ -75,6 +74,18 @@ RSpec.describe ShipFosdick::IndividualShipmentUpdater do
     context "when the shipment cannot be transitioned to the 'shipped' state" do
       before do
         allow(shipment).to receive(:can_ship?).and_return(false)
+      end
+
+      it "raises an exception" do
+        cause = ->{ perform! }
+
+        expect(&cause).to raise_error(MockException)
+      end
+    end
+
+    context "when the shipment has no order" do
+      before do
+        allow(shipment).to receive(:order).and_return(nil)
       end
 
       it "raises an exception" do
