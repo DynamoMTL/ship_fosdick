@@ -25,7 +25,7 @@ module ShipFosdick
 
   class Configuration
     attr_accessor :aws_secret, :aws_key, :bucket, :client_name, :adcode, :client_code, :test_mode,
-    :folder_prefix, :address_max_length
+    :folder_prefix, :address_max_length, :shipment_updater_class
 
     def config
       {
@@ -37,7 +37,8 @@ module ShipFosdick
         client_code: client_code,
         test_mode: test_mode,
         folder_prefix: folder_prefix,
-        address_max_length: address_max_length
+        address_max_length: address_max_length,
+        shipment_updater_class: shipment_updater_class
       }
     end
 
